@@ -20,15 +20,15 @@ SECTIONS {
         *(.rela.*)
     }
 
-    .rodata : ALIGN(0x1000) {
-        *(.rodata)
-        *(.rodata.*)
-    } : rodata
-
     .text : ALIGN(0x1000) {
         *(.text)
         *(.text.*)
     } : text
+
+    .rodata : ALIGN(0x1000) {
+        *(.rodata)
+        *(.rodata.*)
+    } : rodata
 
     .data.rel.ro : ALIGN(0x1000) {
         *(.data.rel.ro)
@@ -39,7 +39,7 @@ SECTIONS {
         LONG(0)
     } : data : dynamic
 
-    .data : {
+    .data : ALIGN(0x1000) {
         *(.data)
         *(.data.*)
     } : data

@@ -44,4 +44,4 @@ __ckb_bootloader_start:
   li t6, 0
   /* TODO: setup the first page starting as address 0 as executable */
   /* Boot as usual */
-  call _start
+  j _start
