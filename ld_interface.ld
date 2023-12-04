@@ -1,11 +1,26 @@
+PHDRS {
+    dummy PT_LOAD FLAGS(5) ;
+    text PT_LOAD FLAGS(5) ;
+    rodata PT_LOAD FLAGS(4) ;
+    data PT_LOAD FLAGS(6) ;
+
+    relro PT_GNU_RELRO FLAGS(4) ;
+    stack PT_GNU_STACK FLAGS(6) ;
+}
+
 ENTRY(__ckb_bootloader_start)
 
 SECTIONS {
+    . = 0x0;
+    .ckb.vm.dummy : ALIGN(0x1000) {
+        BYTE(0)
+    } : dummy
+
     . = 0x80000;
 
     .dynsym : {
-        KEEP(*(.dynsym))
-    } : base
+        *(.dynsym)
+    }
     .gnu.hash : {
         *(.gnu.hash)
     }
@@ -33,11 +48,10 @@ SECTIONS {
     .data.rel.ro : ALIGN(0x1000) {
         *(.data.rel.ro)
         *(.data.rel.ro.*)
-    } : relro
+    }
     .dynamic : ALIGN(0x1000) {
-        KEEP(*(.dynamic))
-        LONG(0)
-    } : data : dynamic
+        *(.dynamic)
+    }
 
     .data : ALIGN(0x1000) {
         *(.data)
@@ -51,6 +65,7 @@ SECTIONS {
 
     .stack : {
         *(.stack)
-    } : stack
+    }
 
+    _end = .; PROVIDE (end = .);
 }
