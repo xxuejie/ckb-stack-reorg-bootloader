@@ -1,7 +1,6 @@
 PHDRS {
     dummy PT_LOAD FLAGS(5) ;
     text PT_LOAD FLAGS(5) ;
-    rodata PT_LOAD FLAGS(4) ;
     data PT_LOAD FLAGS(6) ;
 
     relro PT_GNU_RELRO FLAGS(4) ;
@@ -40,23 +39,24 @@ SECTIONS {
         *(.text.*)
     } : text
 
-    .rodata : ALIGN(0x1000) {
+    .rodata : {
         *(.rodata)
         *(.rodata.*)
-    } : rodata
-
-    .data.rel.ro : ALIGN(0x1000) {
-        *(.data.rel.ro)
-        *(.data.rel.ro.*)
-    } : relro
-    .dynamic : ALIGN(0x1000) {
-        *(.dynamic)
-    } : data : dynamic
+    } : text
 
     .data : ALIGN(0x1000) {
         *(.data)
         *(.data.*)
     } : data
+
+    .dynamic : {
+        *(.dynamic)
+    } : data : dynamic
+
+    .data.rel.ro : ALIGN(0x1000) {
+        *(.data.rel.ro)
+        *(.data.rel.ro.*)
+    } : relro
     
     .bss : {
         *(.bss)
