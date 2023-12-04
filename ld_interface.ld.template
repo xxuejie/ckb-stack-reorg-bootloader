@@ -48,10 +48,10 @@ SECTIONS {
     .data.rel.ro : ALIGN(0x1000) {
         *(.data.rel.ro)
         *(.data.rel.ro.*)
-    }
+    } : relro
     .dynamic : ALIGN(0x1000) {
         *(.dynamic)
-    }
+    } : data : dynamic
 
     .data : ALIGN(0x1000) {
         *(.data)
@@ -65,7 +65,7 @@ SECTIONS {
 
     .stack : {
         *(.stack)
-    }
+    } : stack
 
     _end = .; PROVIDE (end = .);
 }
