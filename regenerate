@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+STACK_SIZE="$1"
+
+if [ "x$STACK_SIZE" = "x" ]
+then
+  STACK_SIZE="0x80000"
+fi
+
+sed s/@@STACK_SIZE@@/$STACK_SIZE/g ld_interface.ld.template > ld_interface.ld
+sed s/@@STACK_SIZE@@/$STACK_SIZE/g bootloader.S.template > bootloader.S

@@ -1,6 +1,6 @@
 .global __ckb_bootloader_start
 __ckb_bootloader_start:
-  li t4, (0x400000 - 0x80000) /* Difference between new & old stack region */
+  li t4, (0x400000 - @@STACK_SIZE@@) /* Difference between new & old stack region */
   mv t1, sp
   sub t2, t1, t4 /* t2 points to new stack, while t1 points to old stack */
   ld t0, 0(t1)
