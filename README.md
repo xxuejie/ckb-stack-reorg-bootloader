@@ -16,3 +16,8 @@ Note that the default provided file is configured to use a stack of 512KB. For c
 ```
 
 After the command finishes, `bootloader.S` and `ld_interface.ld` will be updated accordingly, feel free to then copy those 2 files to your project to setup a bigger stack.
+
+For now, this library is only tested against the following environment:
+
+* `rust-lld` or `lld` from LLVM used as the final linker
+* CKB-VM script version 1 or above is used
